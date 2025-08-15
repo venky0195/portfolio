@@ -15,8 +15,8 @@ const websites = [
   {
     title: 'FolioBulls',
     description:
-      'Sleek UI for tracking digital asset portfolios with real-time stats.',
-    tech: ['React', 'Tailwind', 'Vercel'],
+      'Financial services company helping individuals achieve financial freedom through personalized SIP guidance and expert financial planning.',
+    tech: ['Next.js', 'Tailwind', 'Vercel'],
     url: 'https://foliobulls.vercel.app/',
     screenshot: '/images/foliobulls.png',
   },
