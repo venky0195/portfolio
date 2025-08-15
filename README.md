@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Venkatesh G — Portfolio
 
-## Getting Started
+This is a modern, fully customizable developer portfolio built with **Next.js App Router**, **Tailwind CSS**, and **Framer Motion**. All content is dynamically loaded from a single `content.json` file.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 💡 JSON-based content — change everything without touching the code
+- 🌗 Light/Dark mode with theme toggle
+- 💻 Fully responsive, clean layout
+- 🎞️ Smooth animations using Framer Motion
+- 🚀 Built with performance-first mindset (Turbopack enabled)
+- 🧩 Modular component architecture
+
+---
+
+## 📁 Project Structure
+
+```text
+/app
+  /components       → Reusable UI components
+  /layout.tsx       → Root layout with dynamic metadata
+  /page.tsx         → Conditionally renders sections based on content.json
+
+/public
+  /images           → All portfolio-related images (used in JSON)
+  content.json      → Single source of truth for all content
+
+/types.ts           → Shared TypeScript interfaces
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 1. Install dependencies
+npm install
 
-## Learn More
+# 2. Start the dev server
+npm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧠 How It Works
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- All content is defined in `public/content.json`.
+- Each section (Hero, About, Projects, Websites, Contact, Footer) is rendered **only if present** in `content.json`.
+- Metadata like title and description is also dynamically generated from this file.
 
-## Deploy on Vercel
+> Example:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```json
+{
+  "metadata": {
+    "title": "Venkatesh | Portfolio",
+    "description": "Software Engineer Portfolio"
+  },
+  "header": {
+    "logo": "VG",
+    "nav": [
+      { "label": "Home", "href": "#hero" },
+      { "label": "Projects", "href": "#projects" }
+    ]
+  },
+  ...
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🖼️ Images
+
+All images referenced in the JSON must be placed inside the `/public` directory. For example:
+
+
+```json
+{
+  "imageUrl": "/images/project-1.png"
+}
+```
+
+---
+
+## 🔧 Customization
+
+To customize:
+
+1. Edit `public/content.json` with your own data
+2. Replace the images in `/public/images`
+3. (Optional) Adjust styles in `globals.css` or Tailwind classes
+
+---
+
+## 📦 Built With
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lucide Icons](https://lucide.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+---
+
+## 📄 License
+
+MIT — [Venkatesh G](https://github.com/https://github.com/venky0195).
