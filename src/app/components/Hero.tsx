@@ -20,15 +20,6 @@ export default function Hero() {
           Hi, I&apos;m <span className="text-primary">Venkatesh</span>{' '}
           <motion.span
             className="inline-block origin-bottom-left"
-            animate={{
-              rotate: [0, 20, -10, 20, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatDelay: 3,
-              ease: 'easeInOut',
-            }}
           >
             👋
           </motion.span>
@@ -40,7 +31,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         >
-          I’m a full-stack engineer who enjoys building reliable, performant, and user-focused digital experiences across the web.
+          I&apos;m a full-stack engineer who enjoys building reliable, performant, and user-focused digital experiences across the web.
         </motion.p>
 
         <motion.div
