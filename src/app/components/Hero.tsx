@@ -81,7 +81,7 @@ export default function Hero() {
           ))}
         </motion.div>
       </motion.section>
-      <a href='#about'>
+      <a className='hidden sm:block' href='#about'>
         <div className='absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-2xl text-primary cursor-pointer'>
           ↓
         </div>
