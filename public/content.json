@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "title": "Venkatesh G | Full Stack Developer",
+    "description": "Software Engineer Portfolio"
+  },
+  "header": {
+    "logo": "Venky",
+    "nav": [
+      {
+        "label": "Home",
+        "href": "#"
+      },
+      {
+        "label": "About",
+        "href": "#about"
+      },
+      {
+        "label": "Projects",
+        "href": "#projects"
+      },
+      {
+        "label": "Websites",
+        "href": "#websites"
+      },
+      {
+        "label": "Contact",
+        "href": "#contact"
+      }
+    ]
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Venkatesh",
+    "description": "I'm a full-stack engineer who enjoys building reliable, performant, and user-focused digital experiences across the web.",
+    "linkedin": "https://www.linkedin.com/in/venkatesh0195/",
+    "github": "https://github.com/venky0195",
+    "techStack": [
+      "TypeScript",
+      "Golang",
+      "Node.js",
+      "React",
+      "Next.js",
+      "AWS",
+      "Docker",
+      "Redis",
+      "OpenTelemetry"
+    ]
+  },
+  "about": {
+    "title": "👨‍💻 About Me",
+    "description": [
+      "I'm Venkatesh — a full-stack engineer with over 6 years of experience designing and delivering robust, scalable web platforms and APIs.",
+      "Currently at <strong><a href=\"https://www.contentstack.com\" target=\"_blank\" rel=\"noopener noreferrer\" className=\"underline hover:opacity-80 transition\">Contentstack</a></strong>, I work on performance-focused backend systems, developer tooling, and internal platforms that support product teams across multiple cloud providers.",
+      "I care deeply about clean architecture, high developer velocity, and improving user experience through thoughtful engineering.",
+      "Outside of work, you'll find me exploring new technologies, mentoring engineers, or speaking about engineering best practices."
+    ]
+  },
+  "projects": {
+    "title": "🛠️ Projects",
+    "items": [
+      {
+        "title": "QR Code Generator",
+        "description": "A lightweight web app to generate QR codes from any text input. Built with React, Tailwind CSS, and powered by the qrcode library. Downloadable output and customizable settings included.",
+        "tech": [
+          "React",
+          "Tailwind CSS",
+          "qrcode"
+        ],
+        "link": "https://github.com/venky0195/qr-code-generator"
+      },
+      {
+        "title": "Developer Portfolio",
+        "description": "This very portfolio — built with Next.js App Router, Tailwind v4, and full theming support.",
+        "tech": [
+          "Next.js",
+          "Tailwind CSS",
+          "Framer Motion",
+          "Lucide"
+        ],
+        "link": "https://github.com/venky0195/portfolio"
+      }
+    ]
+  },
+  "websites": {
+    "title": "🖥 Websites I've Designed",
+    "items": [
+      {
+        "title": "Global Unique Engineering",
+        "description": "A CNC manufacturing website built to showcase industrial services.",
+        "tech": [
+          "Next.js",
+          "Tailwind",
+          "Contentstack"
+        ],
+        "url": "https://global-unique-engineering.eu-contentstackapps.com/",
+        "imageUrl": "/images/global-unique.png"
+      },
+      {
+        "title": "FolioBulls",
+        "description": "Financial services company helping individuals achieve financial freedom through personalized SIP guidance and expert financial planning.",
+        "tech": [
+          "Next.js",
+          "Tailwind",
+          "Vercel"
+        ],
+        "url": "https://foliobulls.vercel.app/",
+        "imageUrl": "/images/foliobulls.png"
+      }
+    ]
+  },
+  "contact": {
+    "heading": "📬 Contact Me",
+    "subheading": "Whether it's a project idea, collaboration, or just a friendly hello — my inbox is always open.",
+    "links": [
+      {
+        "type": "email",
+        "label": "Email",
+        "href": "mailto:ven.venky08@gmail.com"
+      },
+      {
+        "type": "linkedin",
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/venkatesh0195/"
+      },
+      {
+        "type": "github",
+        "label": "GitHub",
+        "href": "https://github.com/venky0195"
+      }
+    ],
+    "resume": {
+      "label": "Download Resume",
+      "href": "/Venkatesh_G_Resume.pdf"
+    }
+  },
+  "footer": {
+    "text": "Venkatesh G — All rights reserved."
+  }
+}

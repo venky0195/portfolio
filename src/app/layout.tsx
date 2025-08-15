@@ -1,10 +1,13 @@
 // app/layout.tsx
 import './globals.css';
 
+import fs from 'fs';
+import { Metadata } from 'next';
 import {
   Inter,
   Orbitron,
 } from 'next/font/google';
+import path from 'path';
 
 import Providers from './components/Providers';
 
@@ -15,11 +18,20 @@ const orbitron = Orbitron({
   variable: '--font-orbitron',
 });
 
-export const metadata = {
-  title: 'Venkatesh | Portfolio',
-  description: 'Software Engineer Portfolio',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const filePath = path.join(process.cwd(), 'public', 'content.json');
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const data = JSON.parse(fileContent);
 
+  const title = data?.metadata?.title || 'Venkatesh | Portfolio';
+  const description =
+    data?.metadata?.description || 'Software Engineer Portfolio';
+
+  return {
+    title,
+    description,
+  };
+}
 export default function RootLayout({
   children,
 }: {

@@ -7,19 +7,19 @@ import {
   X,
 } from 'lucide-react';
 
+import { HeaderData } from '../types';
 import ThemeToggle from './ThemeToggle';
 
-const navItems = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Websites', href: '#websites' },
-  { label: 'Contact', href: '#contact' },
-];
+type Props = {
+  data: HeaderData;
+};
 
-export default function Header() {
+export default function Header({ data }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  const { logo, nav } = data;
 
   return (
     <header className='sticky top-0 z-50 w-full bg-[var(--background)]/80 backdrop-blur border-b border-[var(--foreground)]/10'>
@@ -32,7 +32,7 @@ export default function Header() {
           <span className='text-[var(--foreground)]/50 text-base sm:text-xl [font-family:var(--font-orbitron)]'>
             &lt;
           </span>
-          <span className='[font-family:var(--font-orbitron)]'>Venky</span>
+          <span className='[font-family:var(--font-orbitron)]'>{logo}</span>
           <span className='text-[var(--foreground)]/50 text-base sm:text-xl animate-blink [font-family:var(--font-orbitron)]'>
             /
           </span>
@@ -44,7 +44,7 @@ export default function Header() {
         {/* Right side */}
         <div className='flex items-center gap-4'>
           <nav className='hidden sm:flex gap-6 text-sm'>
-            {navItems.map(({ label, href }) => (
+            {nav.map(({ label, href }) => (
               <a
                 key={href}
                 href={href}
@@ -59,7 +59,6 @@ export default function Header() {
             <ThemeToggle />
           </div>
 
-          {/* Hamburger */}
           <button
             onClick={toggleMenu}
             className='sm:hidden p-2 rounded focus:outline-none'
@@ -70,10 +69,9 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <nav className='sm:hidden fixed top-16 left-0 w-full z-40 bg-[var(--background)]/90 border-t border-[var(--foreground)]/10 px-6 pb-6 pt-4 flex flex-col gap-4 text-sm animate-fade-in-down'>
-          {navItems.map(({ label, href }) => (
+          {nav.map(({ label, href }) => (
             <a
               key={href}
               href={href}
