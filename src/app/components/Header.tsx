@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  useEffect,
-  useState,
-} from 'react';
+import { useState } from 'react';
 
 import {
   Menu,
@@ -22,17 +19,7 @@ const navItems = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
   const toggleMenu = () => setIsOpen((prev) => !prev);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <header className='sticky top-0 z-50 w-full bg-[var(--background)]/80 backdrop-blur border-b border-[var(--foreground)]/10'>
