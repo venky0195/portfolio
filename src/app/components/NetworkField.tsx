@@ -85,11 +85,35 @@ const SCENE_ALPHA: Record<Scene, number> = {
   // receding through the two quieter, more reflective chapters, then rising
   // again as the network gathers for the close — so presence itself traces an
   // arc instead of holding one steady background level for the whole page.
+  //
+  // Status was tuned to 0.46 to sell that "return" — until seeing it rendered
+  // against the actual paragraph showed bright nodes sitting on the words. The
+  // arc still rises at the close, just not far enough to fight the sentence
+  // that closes the site.
   hero: 1,
   work: 0.32,
-  trace: 0.22,
+  trace: 0.2,
   origin: 0.18,
-  status: 0.46,
+  status: 0.3,
+};
+
+/**
+ * Mobile gets its own curve, not a scaled-down copy of the desktop one.
+ *
+ * A phone has no spare width to put the graph beside the text the way the
+ * hero does, and every section here stacks into one long reading column — so
+ * the network has far less room to be present in without sitting on top of
+ * something a visitor is trying to read. Work keeps most of its presence
+ * (screenshots tolerate it); the three reading-heavy chapters — Trace's row
+ * list, Origin's tech stack, and especially Status's message and checklist —
+ * go quieter than their desktop counterparts, not uniformly dimmer than them.
+ */
+const SCENE_ALPHA_MOBILE: Record<Scene, number> = {
+  hero: 0.92,
+  work: 0.28,
+  trace: 0.16,
+  origin: 0.1,
+  status: 0.2,
 };
 
 export default function NetworkField() {
@@ -122,6 +146,9 @@ export default function NetworkField() {
     const finePointer = window.matchMedia(
       '(hover: hover) and (pointer: fine)'
     ).matches;
+    // Matches the Tailwind `md:` breakpoint used throughout the page, so the
+    // network's own idea of "mobile" agrees with the layout's.
+    const initialMobile = window.innerWidth < 768;
 
     // Deterministic RNG: the composition is art-directed, not random per load.
     let seed = 20260806;
@@ -195,7 +222,7 @@ export default function NetworkField() {
         });
       }
     };
-    if (!reduceMotion) seedPackets(20);
+    if (!reduceMotion) seedPackets(initialMobile ? 10 : 20);
 
     // ---- Rollout state machine ----
     type Phase = 'idle' | 'canary' | 'verify' | 'wave' | 'settled';
@@ -254,9 +281,13 @@ export default function NetworkField() {
     // ---- Canvas sizing ----
     let w = 0;
     let h = 0;
+    // Re-checked on every resize, not just at mount, so rotating a device or
+    // resizing across the breakpoint updates the framing live.
+    let isMobile = initialMobile;
     const resize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
+      isMobile = w < 768;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
@@ -394,10 +425,49 @@ export default function NetworkField() {
       // framing drifts at one steady rate for the whole page.
       hero: { cx: 0.66, cy: 0.5, spread: 0.54 },
       work: { cx: 0.605, cy: 0.5, spread: 0.515 },
-      trace: { cx: 0.55, cy: 0.5, spread: 0.49 },
-      origin: { cx: 0.5, cy: 0.5, spread: 0.465 },
-      status: { cx: 0.5, cy: 0.5, spread: 0.44 },
+      // Trace, Origin and Status all originally centred at cy: 0.5 — which,
+      // seen against the actual rendered page, put the densest part of the
+      // graph squarely on the waterfall rows, the tech-stack list and the
+      // closing paragraph respectively. Each is now biased toward whichever
+      // part of its own content can carry the graph's weight — a short
+      // heading, a wide text column's far edge — and pulled in enough to
+      // clear the reading-heavy part before it gets there.
+      trace: { cx: 0.58, cy: 0.32, spread: 0.42 },
+      origin: { cx: 0.72, cy: 0.42, spread: 0.42 },
+      status: { cx: 0.5, cy: 0.3, spread: 0.36 },
     };
+
+    /**
+     * On a phone the graph can't sit beside the text — there is no "beside."
+     * Every section is one narrow reading column, so the only lever left is
+     * where in that column the network sits, and how much of it there is.
+     * Each row is a deliberate choice about that section's actual content
+     * shape, not the desktop numbers scaled down:
+     *  - hero: pushed low, under the headline and description, so the words
+     *    a first-time visitor reads first sit in the clearest air on the page.
+     *  - work: biased up, behind the short heading — the tiles themselves are
+     *    real screenshots and simply sit on top of it.
+     *  - trace / origin / status: pulled small and high, clear of the row
+     *    list, the stack list, and — most deliberately — the message and
+     *    checklist that close the site, which should read first and calmest.
+     */
+    const CAMERA_MOBILE: Record<Scene, { cx: number; cy: number; spread: number }> = {
+      hero: { cx: 0.58, cy: 0.72, spread: 0.3 },
+      work: { cx: 0.5, cy: 0.38, spread: 0.4 },
+      trace: { cx: 0.5, cy: 0.26, spread: 0.3 },
+      // Origin's four paragraphs run back to back with no gap between them,
+      // unlike Trace (a short description, then a gap, then the list) or
+      // Status (a short subheading, then a real gap, then the checklist) —
+      // there is no clean pocket of whitespace to dodge into here, so this
+      // one leans harder on being small and quiet than on being well-placed.
+      origin: { cx: 0.5, cy: 0.16, spread: 0.18 },
+      status: { cx: 0.5, cy: 0.22, spread: 0.24 },
+    };
+
+    // Single source of truth for "which table is live right now" — read by
+    // the initial camera values below and by every frame in step().
+    const cameraFor = () => (isMobile ? CAMERA_MOBILE : CAMERA);
+    const alphaFor = () => (isMobile ? SCENE_ALPHA_MOBILE : SCENE_ALPHA);
 
     const ORDER: Scene[] = ['hero', 'work', 'trace', 'origin', 'status'];
 
@@ -460,9 +530,9 @@ export default function NetworkField() {
     };
 
     // Live camera values, blended every frame.
-    let camCx = w * CAMERA.hero.cx;
-    let camCy = h * CAMERA.hero.cy;
-    let camSpread = Math.min(w, h) * CAMERA.hero.spread;
+    let camCx = w * cameraFor().hero.cx;
+    let camCy = h * cameraFor().hero.cy;
+    let camSpread = Math.min(w, h) * cameraFor().hero.spread;
 
     const sceneCenter = () => ({ cx: camCx, cy: camCy });
     const spread = () => camSpread;
@@ -470,7 +540,7 @@ export default function NetworkField() {
     let t = 0;
     let raf = 0;
     let running = false;
-    let currentAlpha = SCENE_ALPHA.hero;
+    let currentAlpha = alphaFor().hero;
 
     const project = (p: Vec3) => {
       const cy_ = Math.cos(yaw);
@@ -647,8 +717,10 @@ export default function NetworkField() {
 
         // Names are revealed, never listed. The hovered node is named by the
         // DOM readout; everything it touches names itself here, which is the
-        // moment the graph stops being decoration and becomes a system.
-        if (lit && !isHover && l.scale > 0.7) {
+        // moment the graph stops being decoration and becomes a system. Text
+        // painted onto the canvas competes directly with real DOM text on a
+        // narrow column, so labels stay a desktop-only reward for hovering.
+        if (!isMobile && lit && !isHover && l.scale > 0.7) {
           discovered.add(l.node.id);
           ctx.font =
             '500 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
@@ -700,8 +772,8 @@ export default function NetworkField() {
       const { a, b, k } = sampleScroll();
       sceneRef.current = k < 0.5 ? a : b;
 
-      const ca = CAMERA[a];
-      const cb = CAMERA[b];
+      const ca = cameraFor()[a];
+      const cb = cameraFor()[b];
       const wantCx = w * (ca.cx + (cb.cx - ca.cx) * k);
       const wantCy = h * (ca.cy + (cb.cy - ca.cy) * k);
       const wantSpread =
@@ -713,7 +785,8 @@ export default function NetworkField() {
       camCy += (wantCy - camCy) * 0.08;
       camSpread += (wantSpread - camSpread) * 0.08;
 
-      const wantAlpha = SCENE_ALPHA[a] + (SCENE_ALPHA[b] - SCENE_ALPHA[a]) * k;
+      const alphaTable = alphaFor();
+      const wantAlpha = alphaTable[a] + (alphaTable[b] - alphaTable[a]) * k;
       currentAlpha += (wantAlpha - currentAlpha) * 0.06;
 
       // ---- Continuous posing ----
@@ -905,7 +978,9 @@ export default function NetworkField() {
         const { cx, cy } = sceneCenter();
         visitor.tx = cx;
         visitor.ty = cy + spread() * 0.62;
-        visitor.glow = Math.min(1, visitor.glow + 0.012);
+        // A companion arriving, not a headline: on a phone this moment shares
+        // the screen with the message it should be quiet next to.
+        visitor.glow = Math.min(isMobile ? 0.68 : 1, visitor.glow + 0.012);
       } else if (finePointer && pointerX > -9000) {
         // Trails well behind the pointer so it reads as its own thing rather
         // than a cursor decoration.
@@ -961,7 +1036,7 @@ export default function NetworkField() {
           l.scale = pr.scale;
         }
       }
-      currentAlpha = SCENE_ALPHA.hero;
+      currentAlpha = alphaFor().hero;
       draw();
       drawVisitor();
     } else {
