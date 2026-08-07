@@ -1,5 +1,3 @@
-'use client';
-
 import { FooterData } from '../types';
 
 type Props = {
@@ -8,7 +6,7 @@ type Props = {
 
 export default function Footer({ data }: Props) {
   return (
-    <footer className='border-t border-[var(--foreground)]/10 px-6 py-6 text-sm text-center text-[var(--foreground)]/60'>
+    <footer className='relative z-10 border-t border-border px-6 py-8 text-center text-sm text-foreground-muted'>
       <p>
         © {new Date().getFullYear()} {data.text}
       </p>

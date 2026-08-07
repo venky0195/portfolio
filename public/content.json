@@ -1,66 +1,97 @@
 {
   "metadata": {
-    "title": "Venkatesh G | Full Stack Developer",
-    "description": "Software Engineer Portfolio"
+    "title": "Venkatesh G | Platform & Delivery Engineer",
+    "description": "I build the hosting platform other people's websites run on — 47+ production sites, ~300M requests a month, 99.99% uptime. Multi-cloud delivery and edge caching at Contentstack.",
+    "url": "https://venky-dev.vercel.app"
   },
   "header": {
     "logo": "Venky",
     "nav": [
       {
-        "label": "Home",
-        "href": "#"
+        "label": "Work",
+        "href": "#work"
       },
       {
-        "label": "About",
-        "href": "#about"
+        "label": "Trace",
+        "href": "#trace"
       },
       {
-        "label": "Projects",
-        "href": "#projects"
+        "label": "Origin",
+        "href": "#origin"
       },
       {
-        "label": "Websites",
-        "href": "#websites"
-      },
-      {
-        "label": "Contact",
-        "href": "#contact"
+        "label": "Status",
+        "href": "#status"
       }
     ]
   },
   "hero": {
-    "greeting": "Hi, I'm",
-    "name": "Venkatesh",
-    "description": "I'm a full-stack engineer who enjoys building reliable, performant, and user-focused digital experiences across the web.",
+    "eyebrow": "Platform & delivery engineering",
+    "headline": "I build the platform that other people's websites run on.",
+    "description": "At Contentstack I engineer Launch — the hosting platform behind 47+ production sites. My job is that they stay up, load fast, and cost less to run.",
+    "primaryCta": {
+      "label": "See the work",
+      "href": "#work"
+    },
+    "secondaryCta": {
+      "label": "Get in touch",
+      "href": "#status"
+    },
     "linkedin": "https://www.linkedin.com/in/venkatesh0195/",
     "github": "https://github.com/venky0195",
-    "techStack": [
-      "TypeScript",
-      "Golang",
-      "Node.js",
-      "React",
-      "Next.js",
-      "AWS",
-      "Docker",
-      "Redis",
-      "OpenTelemetry"
+    "platformStats": [
+      {
+        "value": "47+",
+        "label": "sites running on it",
+        "detail": ""
+      },
+      {
+        "value": "~300M",
+        "label": "requests a month",
+        "detail": ""
+      },
+      {
+        "value": "99.99%",
+        "label": "of the time, it just works",
+        "detail": ""
+      }
     ]
   },
-  "about": {
-    "title": "👨‍💻 About Me",
-    "description": [
-      "I'm Venkatesh — a full-stack engineer with over 6 years of experience designing and delivering robust, scalable web platforms and APIs.",
-      "Currently at <strong><a href=\"https://www.contentstack.com\" target=\"_blank\" rel=\"noopener noreferrer\" className=\"underline hover:opacity-80 transition\">Contentstack</a></strong>, I work on performance-focused backend systems, developer tooling, and internal platforms that support product teams across multiple cloud providers.",
-      "I care deeply about clean architecture, high developer velocity, and improving user experience through thoughtful engineering.",
-      "Outside of work, you'll find me exploring new technologies, mentoring engineers, or speaking about engineering best practices."
-    ]
-  },
-  "projects": {
-    "title": "🛠️ Projects",
+  "work": {
+    "title": "Sites I designed, built and shipped myself",
+    "kicker": "selected work",
     "items": [
       {
+        "title": "FolioBulls",
+        "role": "Design, build & deploy",
+        "description": "A financial-services site for a firm guiding first-time investors through SIP planning.",
+        "impact": "Full ownership: design through production deploy, on a stack chosen for fast first paint on low-end mobile.",
+        "tech": [
+          "Next.js",
+          "Tailwind CSS",
+          "Vercel"
+        ],
+        "link": "https://foliobulls.vercel.app/",
+        "imageUrl": "/images/foliobulls.png"
+      },
+      {
+        "title": "Global Unique Engineering",
+        "role": "Design, build & deploy",
+        "description": "A CNC precision-manufacturing site built to win industrial contracts.",
+        "impact": "Shipped on Contentstack — the same platform I engineer, used here as a customer of my own product.",
+        "tech": [
+          "Next.js",
+          "Tailwind CSS",
+          "Contentstack"
+        ],
+        "link": "https://global-unique-engineering.eu-contentstackapps.com/",
+        "imageUrl": "/images/global-unique.png"
+      },
+      {
         "title": "QR Code Generator",
-        "description": "A lightweight web app to generate QR codes from any text input. Built with React, Tailwind CSS, and powered by the qrcode library. Downloadable output and customizable settings included.",
+        "role": "Side project",
+        "description": "A dependency-light utility that generates and exports QR codes entirely client-side.",
+        "impact": "Built to see how much could be done with zero server and zero runtime dependencies.",
         "tech": [
           "React",
           "Tailwind CSS",
@@ -69,54 +100,164 @@
         "link": "https://github.com/venky0195/qr-code-generator"
       },
       {
-        "title": "Developer Portfolio",
-        "description": "This very portfolio — built with Next.js App Router, Tailwind v4, and full theming support.",
+        "title": "This portfolio",
+        "role": "Side project",
+        "description": "Rebuilt from scratch around one idea: that the site should feel like it was made by someone who cares how the web is served.",
+        "impact": "Statically prerendered, ~250 KB of JS, zero 3D asset downloads — the motion is all maths, not megabytes.",
         "tech": [
           "Next.js",
-          "Tailwind CSS",
-          "Framer Motion",
-          "Lucide"
+          "GSAP",
+          "Canvas",
+          "TypeScript"
         ],
         "link": "https://github.com/venky0195/portfolio"
       }
     ]
   },
-  "websites": {
-    "title": "🖥 Websites I've Designed",
-    "items": [
+  "trace": {
+    "title": "Six years, as a trace",
+    "kicker": "spans, not bullet points",
+    "description": "Where I've been, and what I was building at the time.",
+    "spans": [
       {
-        "title": "Global Unique Engineering",
-        "description": "A CNC manufacturing website built to showcase industrial services.",
-        "tech": [
-          "Next.js",
-          "Tailwind",
-          "Contentstack"
-        ],
-        "url": "https://global-unique-engineering.eu-contentstackapps.com/",
-        "imageUrl": "/images/global-unique.png"
+        "name": "career",
+        "service": "venkatesh.g",
+        "start": 2017,
+        "end": 2026,
+        "depth": 0,
+        "status": "active",
+        "detail": "Root span — still open."
       },
       {
-        "title": "FolioBulls",
-        "description": "Financial services company helping individuals achieve financial freedom through personalized SIP guidance and expert financial planning.",
-        "tech": [
-          "Next.js",
-          "Tailwind",
-          "Vercel"
-        ],
-        "url": "https://foliobulls.vercel.app/",
-        "imageUrl": "/images/foliobulls.png"
+        "name": "fellowship-engineer",
+        "service": "bridgelabz",
+        "start": 2017,
+        "end": 2017,
+        "depth": 1,
+        "status": "ok",
+        "detail": "Fundoo Notes — a Google Keep clone in React and Node. Where it started."
+      },
+      {
+        "name": "software-engineer",
+        "service": "zibtek",
+        "start": 2019,
+        "end": 2020,
+        "depth": 1,
+        "status": "ok",
+        "detail": "OnCourse sales-engagement platform, and RealKit — an end-to-end property listing platform with scheduling, media uploads and role management."
+      },
+      {
+        "name": "senior-software-engineer",
+        "service": "zibtek",
+        "start": 2020,
+        "end": 2021,
+        "depth": 1,
+        "status": "ok",
+        "detail": "CRM systems in React/Node/MongoDB, a LinkedIn-scraping Chrome extension, and DocuSign + Twilio document automation."
+      },
+      {
+        "name": "software-engineer-I",
+        "service": "contentstack",
+        "start": 2021,
+        "end": 2023,
+        "depth": 1,
+        "status": "ok",
+        "detail": "Core developer of Launch — front-end hosting across AWS, GCP and Azure. CI/CD automation with GoCD, Kubernetes deployments."
+      },
+      {
+        "name": "software-engineer-II",
+        "service": "contentstack",
+        "start": 2023,
+        "end": 2026,
+        "depth": 1,
+        "status": "active",
+        "detail": "Grew it to 47+ sites and around 300M requests a month while holding four nines. Built the part that warms content up before anyone asks for it — nine in ten requests now never touch a server — and led the work that lets us see exactly what happened to any request."
       }
     ]
   },
-  "contact": {
-    "heading": "📬 Contact Me",
-    "subheading": "Whether it's a project idea, collaboration, or just a friendly hello — my inbox is always open.",
-    "links": [
+  "origin": {
+    "title": "The origin server",
+    "kicker": "about",
+    "description": [
+      "I'm Venkatesh — a software engineer in Bangalore. Six years in, most of them spent on the half of the web nobody sees: the part that has to stay up.",
+      "I like problems where the win is measurable. Pages that used to wait on a server now mostly don't. Load times down, bills down, and uptime holding steady while the number of sites keeps growing.",
+      "I also build and ship client sites myself, which means I'm a customer of the kind of platform I work on. That loop — building the pipes and then using them — is most of how I've learned what actually matters.",
+      "Outside of that: mentoring engineers, code review, and explaining infrastructure to people who reasonably don't want to think about infrastructure."
+    ],
+    "stack": [
       {
-        "type": "email",
-        "label": "Email",
-        "href": "mailto:ven.venky08@gmail.com"
+        "group": "Languages",
+        "items": [
+          "TypeScript",
+          "Golang",
+          "JavaScript",
+          "Lua"
+        ]
       },
+      {
+        "group": "Edge & delivery",
+        "items": [
+          "Cloudflare",
+          "Fastly",
+          "Nginx",
+          "Redis"
+        ]
+      },
+      {
+        "group": "Cloud & orchestration",
+        "items": [
+          "AWS",
+          "GCP",
+          "Azure",
+          "Kubernetes",
+          "Docker",
+          "Helm",
+          "Terraform"
+        ]
+      },
+      {
+        "group": "Observability",
+        "items": [
+          "OpenTelemetry",
+          "Elasticsearch",
+          "CloudWatch"
+        ]
+      },
+      {
+        "group": "Application",
+        "items": [
+          "Node.js",
+          "React",
+          "Next.js",
+          "NestJS",
+          "GraphQL"
+        ]
+      }
+    ]
+  },
+  "status": {
+    "title": "Accepting requests",
+    "kicker": "get in touch",
+    "subheading": "If you're building something that has to stay up, or that's gotten slow, I'd like to hear about it.",
+    "checks": [
+      {
+        "label": "Open to interesting problems",
+        "state": "up"
+      },
+      {
+        "label": "Bangalore, India",
+        "state": "up"
+      },
+      {
+        "label": "Always happy to talk shop",
+        "state": "up"
+      }
+    ],
+    "primaryCta": {
+      "label": "ven.venky08@gmail.com",
+      "href": "mailto:ven.venky08@gmail.com"
+    },
+    "links": [
       {
         "type": "linkedin",
         "label": "LinkedIn",
@@ -129,11 +270,11 @@
       }
     ],
     "resume": {
-      "label": "Download Resume",
+      "label": "Résumé (PDF)",
       "href": "/Venkatesh_G_Resume.pdf"
     }
   },
   "footer": {
-    "text": "Venkatesh G — All rights reserved."
+    "text": "Venkatesh G — built, cached and served by me."
   }
 }

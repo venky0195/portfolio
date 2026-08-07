@@ -1,47 +1,104 @@
 // app/layout.tsx
 import './globals.css';
 
-import fs from 'fs';
 import { Metadata } from 'next';
 import {
-  Inter,
-  Orbitron,
+  Geist,
+  Geist_Mono,
 } from 'next/font/google';
-import path from 'path';
 
 import Providers from './components/Providers';
+import { getContent } from './lib/content';
 
-const inter = Inter({ subsets: ['latin'] });
-const orbitron = Orbitron({
+const geistSans = Geist({
   subsets: ['latin'],
-  weight: ['400', '600'],
-  variable: '--font-orbitron',
+  variable: '--font-geist',
+});
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const filePath = path.join(process.cwd(), 'public', 'content.json');
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const data = JSON.parse(fileContent);
+  const data = getContent();
 
   const title = data?.metadata?.title || 'Venkatesh | Portfolio';
   const description =
     data?.metadata?.description || 'Software Engineer Portfolio';
+  const url = data?.metadata?.url;
 
   return {
-    title,
+    title: {
+      default: title,
+      template: '%s | Venkatesh G',
+    },
     description,
+    metadataBase: url ? new URL(url) : undefined,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'Venkatesh G',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const data = getContent();
+
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Venkatesh G',
+    jobTitle: 'Software Engineer II — Platform & Delivery',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Contentstack',
+      url: 'https://www.contentstack.com',
+    },
+    address: {
+      '@type': 'PostalPlace',
+      addressLocality: 'Bangalore',
+      addressCountry: 'IN',
+    },
+    knowsAbout: [
+      'Front-end hosting platforms',
+      'CDN and edge caching',
+      'OpenTelemetry',
+      'Multi-cloud infrastructure',
+    ],
+    url: data?.metadata?.url,
+    sameAs: [data?.hero?.linkedin, data?.hero?.github].filter(Boolean),
+  };
+
   return (
-    <html lang='en' className={`${orbitron.variable}`} suppressHydrationWarning>
-      <body
-        className={`${inter.className} bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100`}
-      >
+    <html
+      lang='en'
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </head>
+      <body className='antialiased'>
         <Providers>{children}</Providers>
       </body>
     </html>

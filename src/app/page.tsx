@@ -1,64 +1,69 @@
-'use client';
-
-import {
-  useEffect,
-  useState,
-} from 'react';
-
-import AboutSection from './components/AboutSection';
-import ContactSection from './components/ContactSection';
+import BootSequence from './components/BootSequence';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import ProjectsSection from './components/ProjectsSection';
+import NetworkField from './components/NetworkField';
+import OriginSection from './components/OriginSection';
+import RevealManager from './components/RevealManager';
 import ScrollToTop from './components/ScrollToTop';
-import WebsitesSection from './components/WebsitesSection';
-import { ContentData } from './types';
+import SmoothScroll from './components/SmoothScroll';
+import StatusSection from './components/StatusSection';
+import TraceSection from './components/TraceSection';
+import WorkSection from './components/WorkSection';
+import { getContent } from './lib/content';
 
+/**
+ * Ordered as an introduction, not a system diagram: what he does, what he's
+ * shipped, how he got here, who he is, and how to reach him.
+ */
 export default function HomePage() {
-  const [content, setContent] = useState<ContentData | null>(null);
-
-  useEffect(() => {
-    fetch('/content.json')
-      .then((res) => res.json())
-      .then((data) => setContent(data));
-  }, []);
-
-  if (!content) return null;
+  const content = getContent();
 
   return (
     <>
+      <BootSequence />
+      <NetworkField />
+      <SmoothScroll />
+      <RevealManager />
+
+      <a href='#main-content' className='skip-link'>
+        Skip to content
+      </a>
+
       {content.header && <Header data={content.header} />}
 
-      {content.hero && (
-        <section id='hero'>
-          <Hero data={content.hero} />
-        </section>
-      )}
+      <main id='main-content' className='relative z-10'>
+        {content.hero && (
+          <section id='hero' aria-label='Introduction'>
+            <Hero data={content.hero} />
+          </section>
+        )}
 
-      {content.about && (
-        <section id='about'>
-          <AboutSection data={content.about} />
-        </section>
-      )}
 
-      {content.projects && (
-        <section id='projects'>
-          <ProjectsSection data={content.projects} />
-        </section>
-      )}
+        {content.work && (
+          <section id='work' aria-labelledby='work-heading'>
+            <WorkSection data={content.work} />
+          </section>
+        )}
 
-      {content.websites && (
-        <section id='websites'>
-          <WebsitesSection data={content.websites} />
-        </section>
-      )}
+        {content.trace && (
+          <section id='trace' aria-labelledby='trace-heading'>
+            <TraceSection data={content.trace} />
+          </section>
+        )}
 
-      {content.contact && (
-        <section id='contact'>
-          <ContactSection data={content.contact} />
-        </section>
-      )}
+        {content.origin && (
+          <section id='origin' aria-labelledby='origin-heading'>
+            <OriginSection data={content.origin} />
+          </section>
+        )}
+
+        {content.status && (
+          <section id='status' aria-labelledby='status-heading'>
+            <StatusSection data={content.status} />
+          </section>
+        )}
+      </main>
 
       {content.footer && <Footer data={content.footer} />}
       <ScrollToTop />
