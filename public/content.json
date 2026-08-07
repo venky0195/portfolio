@@ -97,7 +97,8 @@
           "Tailwind CSS",
           "qrcode"
         ],
-        "link": "https://github.com/venky0195/qr-code-generator"
+        "link": "https://github.com/venky0195/qr-code-generator",
+        "media": "qr"
       },
       {
         "title": "This portfolio",
@@ -110,7 +111,8 @@
           "Canvas",
           "TypeScript"
         ],
-        "link": "https://github.com/venky0195/portfolio"
+        "link": "https://github.com/venky0195/portfolio",
+        "media": "mark"
       }
     ]
   },

@@ -200,6 +200,21 @@ main[id] {
   }
 }
 
+/* ================= Cursor blink ================= */
+/*
+ * Used once, on the portfolio project's own mark. The global reduced-motion
+ * block above already forces every animation-duration to ~0, so this needs no
+ * separate opt-out.
+ */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1.1s step-end infinite;
+}
+
 /* ================= Underline-draw link style ================= */
 .link-underline {
   position: relative;

@@ -80,12 +80,16 @@ type Packet = {
 
 const SCENE_ALPHA: Record<Scene, number> = {
   // The hero is the only place the network is the subject. Everywhere else it is
-  // foundation, and must never compete with the words on top of it.
+  // foundation, and must never compete with the words on top of it. From there
+  // the curve is deliberate, not a flat plateau: present for the product work,
+  // receding through the two quieter, more reflective chapters, then rising
+  // again as the network gathers for the close — so presence itself traces an
+  // arc instead of holding one steady background level for the whole page.
   hero: 1,
-  work: 0.3,
-  trace: 0.26,
-  origin: 0.28,
-  status: 0.42,
+  work: 0.32,
+  trace: 0.22,
+  origin: 0.18,
+  status: 0.46,
 };
 
 export default function NetworkField() {

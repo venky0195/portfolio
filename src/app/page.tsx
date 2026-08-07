@@ -6,6 +6,7 @@ import NetworkField from './components/NetworkField';
 import OriginSection from './components/OriginSection';
 import RevealManager from './components/RevealManager';
 import ScrollToTop from './components/ScrollToTop';
+import SectionAtmosphere from './components/SectionAtmosphere';
 import SmoothScroll from './components/SmoothScroll';
 import StatusSection from './components/StatusSection';
 import TraceSection from './components/TraceSection';
@@ -41,25 +42,29 @@ export default function HomePage() {
 
 
         {content.work && (
-          <section id='work' aria-labelledby='work-heading'>
+          <section id='work' aria-labelledby='work-heading' className='relative'>
+            <SectionAtmosphere variant='work' />
             <WorkSection data={content.work} />
           </section>
         )}
 
         {content.trace && (
-          <section id='trace' aria-labelledby='trace-heading'>
+          <section id='trace' aria-labelledby='trace-heading' className='relative'>
+            <SectionAtmosphere variant='trace' />
             <TraceSection data={content.trace} />
           </section>
         )}
 
         {content.origin && (
-          <section id='origin' aria-labelledby='origin-heading'>
+          <section id='origin' aria-labelledby='origin-heading' className='relative'>
+            <SectionAtmosphere variant='origin' />
             <OriginSection data={content.origin} />
           </section>
         )}
 
         {content.status && (
-          <section id='status' aria-labelledby='status-heading'>
+          <section id='status' aria-labelledby='status-heading' className='relative'>
+            <SectionAtmosphere variant='status' />
             <StatusSection data={content.status} />
           </section>
         )}

@@ -40,6 +40,12 @@ export interface WorkItem {
   tech: string[];
   link?: string;
   imageUrl?: string;
+  /**
+   * How a screenshot-less project draws itself. Explicit per item rather than
+   * inferred from the title, so the choice of medium lives in content, not in a
+   * string match buried inside a component.
+   */
+  media?: 'qr' | 'mark';
 }
 
 export interface WorkData {

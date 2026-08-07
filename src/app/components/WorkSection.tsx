@@ -12,6 +12,8 @@ import Image from 'next/image';
 import { PROJECT_FOCUS } from '../lib/network';
 import { usePriming } from '../lib/usePriming';
 import { WorkData, WorkItem } from '../types';
+import PortfolioMark from './PortfolioMark';
+import QRArtwork from './QRArtwork';
 import TileConstellation from './TileConstellation';
 
 type Props = {
@@ -164,6 +166,8 @@ function WorkTile({
       >
         <div className='relative h-full min-h-[15rem] w-full overflow-hidden bg-background-elevated'>
           {item.imageUrl ? (
+            // A visual product: the design itself is the deliverable, so the
+            // most honest artwork is the actual thing, not a diagram of it.
             <Image
               src={item.imageUrl}
               alt={`${item.title} — site preview`}
@@ -174,10 +178,18 @@ function WorkTile({
               className='object-cover saturate-[0.55] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:saturate-100 group-focus-visible:scale-[1.04] group-focus-visible:saturate-100'
             />
           ) : (
-            // No screenshot: draw what the thing is actually made of instead.
-            // A soft wash keeps the tile from reading as a hole in the mosaic.
             <div className='relative flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_50%_45%,var(--color-accent-subtle),transparent_70%)] p-10 transition-transform duration-[900ms] ease-out group-hover:scale-[1.04] group-focus-visible:scale-[1.04]'>
-              <TileConstellation items={item.tech} />
+              {item.media === 'qr' && item.link ? (
+                // A tool that makes QR codes, demonstrated by actually making one.
+                <QRArtwork data={item.link} />
+              ) : item.media === 'mark' ? (
+                // The page the visitor is already inside — no diagram needed.
+                <PortfolioMark />
+              ) : (
+                // Default for any future screenshot-less project: its own stack,
+                // drawn in the network's own visual language.
+                <TileConstellation items={item.tech} />
+              )}
             </div>
           )}
 
