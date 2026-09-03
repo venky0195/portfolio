@@ -6,6 +6,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
+import { lenisEasing, setLenis } from '../lib/lenis-instance';
+
 gsap.registerPlugin(ScrollTrigger);
 
 /**
@@ -27,7 +29,7 @@ export default function SmoothScroll() {
     const lenis = new Lenis({
       duration: 1.05,
       // Long, gentle ease-out: carries momentum without feeling detached.
-      easing: (t) => 1 - Math.pow(1 - t, 3),
+      easing: lenisEasing,
       touchMultiplier: 1.6,
       // Let Lenis own its animation loop. Driving `lenis.raf()` from GSAP's
       // ticker is the more commonly cited integration, but it couples two
@@ -40,6 +42,7 @@ export default function SmoothScroll() {
     });
 
     lenis.on('scroll', ScrollTrigger.update);
+    setLenis(lenis);
 
     // Pinned sections measure layout on creation; once smooth scrolling and
     // fonts have settled, make ScrollTrigger re-measure so pin distances are
@@ -48,6 +51,7 @@ export default function SmoothScroll() {
     document.fonts?.ready.then(refresh);
 
     return () => {
+      setLenis(null);
       lenis.destroy();
     };
   }, []);
