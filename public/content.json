@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Venkatesh G | Platform & Delivery Engineer",
-    "description": "I build the hosting platform other people's websites run on — 47+ production sites, ~300M requests a month, 99.99% uptime. Multi-cloud delivery and edge caching at Contentstack.",
+    "description": "I build the hosting platform other people's websites run on — 251+ production sites, ~4.2B requests a month, 99.99% uptime. Multi-cloud delivery and edge caching at Contentstack.",
     "url": "https://venky-dev.vercel.app"
   },
   "header": {
@@ -28,7 +28,7 @@
   "hero": {
     "eyebrow": "Platform & delivery engineering",
     "headline": "I build the platform that other people's websites run on.",
-    "description": "At Contentstack I engineer Launch — the hosting platform behind 47+ production sites. My job is that they stay up, load fast, and cost less to run.",
+    "description": "At Contentstack I engineer Launch — the hosting platform behind 251+ production sites. My job is that they stay up, load fast, and cost less to run.",
     "primaryCta": {
       "label": "See the work",
       "href": "#work"
@@ -41,12 +41,12 @@
     "github": "https://github.com/venky0195",
     "platformStats": [
       {
-        "value": "47+",
+        "value": "251+",
         "label": "sites running on it",
         "detail": ""
       },
       {
-        "value": "~300M",
+        "value": "~4.2B",
         "label": "requests a month",
         "detail": ""
       },
@@ -164,7 +164,7 @@
         "end": 2023,
         "depth": 1,
         "status": "ok",
-        "detail": "Core developer of Launch — front-end hosting across AWS, GCP and Azure. CI/CD automation with GoCD, Kubernetes deployments."
+        "detail": "Core developer of Launch — front-end hosting on AWS. CI/CD automation with GoCD, Kubernetes deployments."
       },
       {
         "name": "software-engineer-II",
@@ -173,7 +173,7 @@
         "end": 2026,
         "depth": 1,
         "status": "active",
-        "detail": "Grew it to 47+ sites and around 300M requests a month while holding four nines. Built the part that warms content up before anyone asks for it — nine in ten requests now never touch a server — and led the work that lets us see exactly what happened to any request."
+        "detail": "Grew it to 251+ sites and around 4.2B requests a month while holding four nines. Built the part that warms content up before anyone asks for it — nine in ten requests now never touch a server — and led the work that lets us see exactly what happened to any request."
       }
     ]
   },
@@ -200,7 +200,6 @@
         "group": "Edge & delivery",
         "items": [
           "Cloudflare",
-          "Fastly",
           "Nginx",
           "Redis"
         ]
