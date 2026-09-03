@@ -173,7 +173,7 @@
         "end": 2026,
         "depth": 1,
         "status": "active",
-        "detail": "Grew it to 251+ sites and around 4.2B requests a month while holding four nines. Built the part that warms content up before anyone asks for it — nine in ten requests now never touch a server — and led the work that lets us see exactly what happened to any request."
+        "detail": "Took it multi-cloud and grew it to 251+ sites and around 4.2B requests a month while holding four nines. Built the part that warms content up before anyone asks for it — nine in ten requests now never touch a server — and led the work that lets us see exactly what happened to any request."
       }
     ]
   },
@@ -221,7 +221,8 @@
         "items": [
           "OpenTelemetry",
           "Elasticsearch",
-          "CloudWatch"
+          "CloudWatch",
+          "Kafka"
         ]
       },
       {
@@ -231,7 +232,9 @@
           "React",
           "Next.js",
           "NestJS",
-          "GraphQL"
+          "GraphQL",
+          "MongoDB",
+          "RabbitMQ"
         ]
       }
     ]
