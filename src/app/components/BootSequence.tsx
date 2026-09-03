@@ -130,6 +130,15 @@ export default function BootSequence() {
 
     ready.then(() => {
       if (cancelled) return;
+      // The creep tween above is very likely still mid-flight here — GSAP
+      // does not overwrite conflicting tweens on its own (overwrite:false is
+      // the default), so without this, both tweens keep independently writing
+      // scaleX every frame. The instant this shorter tween finishes, the
+      // still-running creep tween reclaims the property and visibly snaps the
+      // bar back down to its own, lower progress before creeping up again.
+      // Killing it first means there's only ever one tween driving the bar
+      // once the real completion signal arrives.
+      gsap.killTweensOf(bar);
       gsap.to(bar, {
         scaleX: 1,
         duration: 0.28,
@@ -161,6 +170,14 @@ export default function BootSequence() {
       window.removeEventListener('keydown', onSkip);
       root.removeEventListener('click', onSkip);
       tl.kill();
+      // tl only ever owned the boot-mark's fade-in — the bar's own creep-to-90%
+      // tween below is a separate, untracked gsap.to() call, so tl.kill() alone
+      // left it running. Harmless in production, but React's dev-mode Strict
+      // Mode mounts this effect, cleans it up, and mounts it again immediately
+      // — so that first, unkilled creep tween kept animating in parallel with
+      // the second mount's own creep tween, both driving the same scaleX, which
+      // is what read as the bar visibly lurching backward mid-fill.
+      gsap.killTweensOf(bar);
       unlock();
     };
   }, [done, unlock]);
