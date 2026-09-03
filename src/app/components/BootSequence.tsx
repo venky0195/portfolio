@@ -36,7 +36,15 @@ import gsap from 'gsap';
  */
 
 export default function BootSequence() {
-  const [done, setDone] = useState(true);
+  // Defaults to "not done" so the overlay is part of the very first paint —
+  // including the server-rendered HTML — for a first-time visit. It used to
+  // default to true (no overlay), which looked fine for the cases that skip
+  // the intro, but for an actual first-time visitor it meant the real page
+  // painted first, and the intro only appeared a beat later once the mount
+  // effect below decided to show it — covering content that was already
+  // visible, then lifting to reveal the same content again. The mount effect
+  // now has to explicitly opt back OUT for the skip cases instead.
+  const [done, setDone] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const finished = useRef(false);
@@ -54,9 +62,9 @@ export default function BootSequence() {
     if (reduce || seen || document.hidden) {
       sessionStorage.setItem('booted', '1');
       unlock();
+      setDone(true);
       return;
     }
-    setDone(false);
     document.body.style.overflow = 'hidden';
   }, [unlock]);
 
