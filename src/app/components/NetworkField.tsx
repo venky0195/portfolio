@@ -90,8 +90,14 @@ const SCENE_ALPHA: Record<Scene, number> = {
   // against the actual paragraph showed bright nodes sitting on the words. The
   // arc still rises at the close, just not far enough to fight the sentence
   // that closes the site.
+  //
+  // Work was tuned high (0.32) back when the section was four large image
+  // tiles — the alpha only ever showed through the slivers between them. Now
+  // that it's a text list, that same number is fully exposed behind every
+  // row's title and body copy instead of hiding under a photo. Brought down
+  // near Trace's level, since it's carrying the same kind of content now.
   hero: 1,
-  work: 0.32,
+  work: 0.22,
   trace: 0.2,
   origin: 0.18,
   status: 0.3,
@@ -107,10 +113,13 @@ const SCENE_ALPHA: Record<Scene, number> = {
  * (screenshots tolerate it); the three reading-heavy chapters — Trace's row
  * list, Origin's tech stack, and especially Status's message and checklist —
  * go quieter than their desktop counterparts, not uniformly dimmer than them.
+ *
+ * Work has since joined that list: it's a text row-list now, not four image
+ * tiles, so it's tuned down alongside Trace instead of sitting near the top.
  */
 const SCENE_ALPHA_MOBILE: Record<Scene, number> = {
   hero: 0.92,
-  work: 0.28,
+  work: 0.16,
   trace: 0.16,
   origin: 0.1,
   status: 0.2,
@@ -424,14 +433,25 @@ export default function NetworkField() {
       // precisely what reads as the graph "re-centring". Even deltas mean the
       // framing drifts at one steady rate for the whole page.
       hero: { cx: 0.66, cy: 0.5, spread: 0.54 },
-      work: { cx: 0.605, cy: 0.5, spread: 0.515 },
-      // Trace, Origin and Status all originally centred at cy: 0.5 — which,
-      // seen against the actual rendered page, put the densest part of the
-      // graph squarely on the waterfall rows, the tech-stack list and the
-      // closing paragraph respectively. Each is now biased toward whichever
-      // part of its own content can carry the graph's weight — a short
-      // heading, a wide text column's far edge — and pulled in enough to
-      // clear the reading-heavy part before it gets there.
+      // Work, Trace, Origin and Status all originally centred at cy: 0.5 —
+      // which, seen against the actual rendered page, put the densest part
+      // of the graph squarely on the row list, the waterfall rows, the
+      // tech-stack list and the closing paragraph respectively. Each is now
+      // biased toward whichever part of its own content can carry the
+      // graph's weight — a short heading, a wide text column's far edge —
+      // and pulled in enough to clear the reading-heavy part before it gets
+      // there. Work's own cy: 0.5 dated from when the section was four large
+      // image tiles rather than text rows; it gets the same treatment now
+      // that the tiles are gone.
+      //
+      // Work's spread also isn't directly comparable to the other three: its
+      // own layoutFor('work') pushes secondary nodes out to ~1.25/1.05 on the
+      // normalised axes (deliberately, so the ten "featured" delivery-path
+      // nodes read as a tight ring against a looser field) versus Trace's
+      // ~0.85 max. The same spread number covers close to twice the screen
+      // area here, so it's tuned down further to compensate, not matched to
+      // Trace's raw value.
+      work: { cx: 0.6, cy: 0.34, spread: 0.24 },
       trace: { cx: 0.58, cy: 0.32, spread: 0.42 },
       origin: { cx: 0.72, cy: 0.42, spread: 0.42 },
       status: { cx: 0.5, cy: 0.3, spread: 0.36 },
@@ -445,15 +465,18 @@ export default function NetworkField() {
      * shape, not the desktop numbers scaled down:
      *  - hero: pushed low, under the headline and description, so the words
      *    a first-time visitor reads first sit in the clearest air on the page.
-     *  - work: biased up, behind the short heading — the tiles themselves are
-     *    real screenshots and simply sit on top of it.
-     *  - trace / origin / status: pulled small and high, clear of the row
-     *    list, the stack list, and — most deliberately — the message and
-     *    checklist that close the site, which should read first and calmest.
+     *  - work / trace / origin / status: pulled small and high, clear of the
+     *    row list, the waterfall, the stack list, and — most deliberately —
+     *    the message and checklist that close the site, which should read
+     *    first and calmest. Work used to get a pass here on the strength of
+     *    its image tiles; now it's a text list like the rest, so it earns no
+     *    more room than they do.
      */
     const CAMERA_MOBILE: Record<Scene, { cx: number; cy: number; spread: number }> = {
       hero: { cx: 0.58, cy: 0.72, spread: 0.3 },
-      work: { cx: 0.5, cy: 0.38, spread: 0.4 },
+      // Same layout-width correction as the desktop table — spread here is
+      // tuned to Work's own wider-flung layout, not Trace's spread value.
+      work: { cx: 0.5, cy: 0.22, spread: 0.15 },
       trace: { cx: 0.5, cy: 0.26, spread: 0.3 },
       // Origin's four paragraphs run back to back with no gap between them,
       // unlike Trace (a short description, then a gap, then the list) or
@@ -876,7 +899,14 @@ export default function NetworkField() {
         if (l.heat > 0) l.heat *= 0.955;
       }
 
-      hoveredIdx = sceneRef.current === 'hero' || sceneRef.current === 'work' ? nearest : -1;
+      // Direct cursor-proximity discovery — the tooltip readout, a node
+      // lighting up because the pointer is simply near it — stays a hero-only
+      // privilege. Work used to share it from back when hovering a tile and
+      // hovering the graph were the same gesture; now the row list has its
+      // own, calmer way to light the graph (network:highlight/:focus, fired
+      // from WorkSection), so direct hover here would be a second, redundant
+      // interaction that trace, origin and status never had either.
+      hoveredIdx = sceneRef.current === 'hero' ? nearest : -1;
 
       /**
        * Publish hover state.
