@@ -155,9 +155,13 @@ export const PROJECT_FOCUS: Record<string, string[]> = {
 export const SPAN_FOCUS: Record<string, string[]> = {
   'software-engineer-II': ['launch', 'priming', 'otel', 'elastic', 'cdn'],
   'software-engineer-I': ['launch', 'k8s', 'pipeline', 'golang'],
-  'senior-software-engineer': ['nextjs'],
-  'software-engineer': ['nextjs'],
-  'fellowship-engineer': ['nextjs'],
+  // Bridgelabz and the two zibtek roles predate Launch entirely — nothing in
+  // this graph is honestly theirs. 'nextjs' was standing in as a generic
+  // "frontend work" placeholder, but that node specifically represents this
+  // portfolio's own Next.js projects, and it's wrong to light up "what the
+  // sites are built with" for roles that shipped in Angular and MERN. No
+  // entry here means the hover has nothing true to point at, so it points at
+  // nothing.
 };
 
 /** Focus ring layout: the named nodes come forward, everything else recedes. */
